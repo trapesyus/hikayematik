@@ -16,9 +16,10 @@ import 'package:test_project/screen/masal_screen/masal_screen.dart';
 import 'package:test_project/screen/pratik_bilgiler_screen/pratik_bilgiler_screen.dart';
 import 'package:test_project/screen/tarihi_yerler_screen/tarihi_yerler_screen.dart';
 
+// deografi,dram aşk, masal , deyimler ve hikayeler,tarihi yerler,I'm sohbet ,pratik bilgiler, biografi
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-// deografi,dram aşk, masal , deyimler ve hikayeler,tarihi yerler,I'm sohbet ,pratik bilgiler, biografi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: CustomTitleText(
-            title: 'Hikayematik', color: ColorConstants.whiteColor),
+            title: StringConstants.appName, color: ColorConstants.whiteColor),
         backgroundColor: ColorConstants.appbarTitleColor,
       ),
       body: ListView(
@@ -98,16 +99,12 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          children: [
-                            _circleAvatarTitle(
-                                onTap: () async => await const BiografiScreen()
-                                    .navigateEffectiveTo(context: context),
-                                context: context,
-                                image: ImageConstants.imageBiografi,
-                                categoryTitle: StringConstants.biografi),
-                          ],
-                        ),
+                        _circleAvatarTitle(
+                            onTap: () async => await const BiografiScreen()
+                                .navigateEffectiveTo(context: context),
+                            context: context,
+                            image: ImageConstants.imageBiografi,
+                            categoryTitle: StringConstants.biografi),
                         Container(
                             margin: EdgeInsets.only(
                                 left: context.getSizeWidth(size: 0.07),
@@ -117,18 +114,13 @@ class HomeScreen extends StatelessWidget {
                                 context: context,
                                 image: ImageConstants.imageAppLogo,
                                 categoryTitle: '')),
-                        Column(
-                          children: [
-                            _circleAvatarTitle(
-                                onTap: () async =>
-                                    await const DeyimlerVeHikayelerScreen()
-                                        .navigateEffectiveTo(context: context),
-                                context: context,
-                                image: ImageConstants.imageDeyimlerVeHikayeler,
-                                categoryTitle:
-                                    StringConstants.deyimlerVeHikayeler),
-                          ],
-                        )
+                        _circleAvatarTitle(
+                            onTap: () async =>
+                                await const DeyimlerVeHikayelerScreen()
+                                    .navigateEffectiveTo(context: context),
+                            context: context,
+                            image: ImageConstants.imageDeyimlerVeHikayeler,
+                            categoryTitle: StringConstants.deyimlerVeHikayeler)
                       ],
                     ),
                     Padding(
@@ -137,74 +129,82 @@ class HomeScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                                bottom: context.getSizeHeight(size: 0.04),
-                                right: context.getSizeWidth(size: 0.04)),
-                            child: Column(
-                              children: [
-                                _circleAvatarTitle(
-                                    onTap: () async =>
-                                        await const TarihiYerlerScreen()
-                                            .navigateEffectiveTo(
-                                                context: context),
-                                    context: context,
-                                    image: ImageConstants.imageTarihiYerler,
-                                    categoryTitle:
-                                        StringConstants.tarihiYerler),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                top: context.getSizeHeight(size: 0.06)),
-                            child: Column(
-                              children: [
-                                _circleAvatarTitle(
-                                    onTap: () async =>
-                                        await const PratikBilgilerScreen()
-                                            .navigateEffectiveTo(
-                                                context: context),
-                                    context: context,
-                                    image: ImageConstants.imagePratikBilgiler,
-                                    categoryTitle:
-                                        StringConstants.pratikBilgiler),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: context.getSizeHeight(size: 0.04),
-                              left: context.getSizeWidth(size: 0.04),
-                            ),
-                            child: Column(
-                              children: [
-                                _circleAvatarTitle(
-                                    onTap: () => context.snackBarExtension(
-                                        content:
-                                            'Bu sayfa henüz hazır değil..'),
-                                    context: context,
-                                    image: ImageConstants.imageImSohbet,
-                                    categoryTitle: StringConstants.imSohbet),
-                              ],
-                            ),
-                          ),
+                          _tarihiYerler(context),
+                          _pratikBilgiler(context),
+                          _sohbet(context),
                         ],
                       ).getPaddingOnly(context: context, bottom: 0.04),
                     ),
                   ],
                 ),
-                Image.asset(
-                  ImageConstants.imageLogo,
-                  filterQuality: FilterQuality.high,
-                  fit: BoxFit.cover,
-                  height: context.getSizeHeight(size: 0.18),
-                )
+                _bottomLogo(context)
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Container _tarihiYerler(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+          bottom: context.getSizeHeight(size: 0.04),
+          right: context.getSizeWidth(size: 0.04)),
+      child: Column(
+        children: [
+          _circleAvatarTitle(
+              onTap: () async => await const TarihiYerlerScreen()
+                  .navigateEffectiveTo(context: context),
+              context: context,
+              image: ImageConstants.imageTarihiYerler,
+              categoryTitle: StringConstants.tarihiYerler),
+        ],
+      ),
+    );
+  }
+
+  Container _pratikBilgiler(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: context.getSizeHeight(size: 0.06)),
+      child: Column(
+        children: [
+          _circleAvatarTitle(
+              onTap: () async => await const PratikBilgilerScreen()
+                  .navigateEffectiveTo(context: context),
+              context: context,
+              image: ImageConstants.imagePratikBilgiler,
+              categoryTitle: StringConstants.pratikBilgiler),
+        ],
+      ),
+    );
+  }
+
+  Container _sohbet(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: context.getSizeHeight(size: 0.04),
+        left: context.getSizeWidth(size: 0.04),
+      ),
+      child: Column(
+        children: [
+          _circleAvatarTitle(
+              onTap: () => context.snackBarExtension(
+                  content: 'Bu sayfa henüz hazır değil..'),
+              context: context,
+              image: ImageConstants.imageImSohbet,
+              categoryTitle: StringConstants.imSohbet),
+        ],
+      ),
+    );
+  }
+
+  Image _bottomLogo(BuildContext context) {
+    return Image.asset(
+      ImageConstants.imageLogo,
+      filterQuality: FilterQuality.high,
+      fit: BoxFit.cover,
+      height: context.getSizeHeight(size: 0.18),
     );
   }
 
